@@ -1,0 +1,9 @@
+{
+    "DESIGN_NAME": "LFSR",
+    "VERILOG_FILES": "dir::src/*.v",
+    "CLOCK_PERIOD": 10.0,
+    "CLOCK_PORT": "clk",
+    "DIE_AREA": "0 0 45 45",
+    "FP_SIZING": "absolute",
+    "DESIGN_IS_CORE": false
+}
