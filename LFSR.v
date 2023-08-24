@@ -1,45 +1,41 @@
-module LFSR(out, clk, reset, seed, load_seed);
-	input[31:1] seed;
-	input reset;
-	input clk;
-	input load_seed;
+module linear_feedback_shift_register(out, clock, reset, seed, load_seed);
 	output out;
-	wire or_out_1;
-	wire or_out_2;
-	wire or_out_3;
-	wire[31:0] flip_flop_outputs;
-	wire[31:0] flip_flop_inputs;
-	flip_flop flip_flop_instance[31:0] (flip_flop_inputs, clk, reset, flip_flop_outputs);
-	one_bit_mux mux[31:1] (flip_flop_inputs[31:1], load_seed, seed, flip_flop_outputs[31:1]);
-	assign or_out_1 = flip_flop_outputs[31] ^ flip_flop_outputs[21];
-	assign or_out_2 = flip_flop_outputs[1] ^ or_out_1;
-	assign or_out_3 = flip_flop_outputs[0] ^ or_out_2;
-	assign flip_flop_inputs[0] = or_out_3;
-	assign out = flip_flop_outputs[31];
+	input [31:0] seed;
+	input load_seed;
+	input reset;
+	input clock;
+	wire [31:0] flip_flop_outputs;
+	wire [31:0] flip_flop_inputs;
+	flip_flop flip_flop_instance[31:0] (flip_flop_outputs, clock, reset, flip_flop_inputs);
+	one_bit_mux muxes[31:0] (flip_flop_inputs, load_seed, seed, {flip_flop_outputs[30:0], feedback3});
+	xor feedback_gate_one(feedback1, flip_flop_outputs[6], flip_flop_outputs[31]);
+	xor feedback_gate_two(feedback2, feedback1, flip_flop_outputs[5]);
+	xor feedback_gate_three(feedback3, feedback2, flip_flop_outputs[1]);
+	assign out = feedback3;
 endmodule
 
-module flip_flop(flip_flop_input, clk, reset, flip_flop_output);
-	input flip_flop_input;
-	input clk;
+module flip_flop(out, clock, reset, in);
+	input clock;
 	input reset;
-	output reg flip_flop_output;
-	always @(posedge clk)
+	input in;
+	output out;
+	reg out;
+	always @(posedge clock or posedge reset)
 	begin
-		if (reset == 1'b1)
-			flip_flop_output <= 1'b0;
-		else
-			flip_flop_output <= flip_flop_input;
+
+	if (reset)
+		out = 0;
+	else
+		out = in;
 	end
 endmodule
 
-module one_bit_mux (mux_output, mux_control, mux_input_a, mux_input_b);
-	output mux_output;
-	input mux_control;
-	input mux_input_a;
-	input mux_input_b;
-	reg mux_output;
-	wire mux_control_not;
-	assign mux_control_not = !mux_control;
-	always @(mux_control | mux_control_not | mux_input_a | mux_input_b)
-		mux_output = (mux_control & mux_input_a) | (mux_control_not & mux_input_b);
+module one_bit_mux(out, control, input_a, input_b);
+	output out;
+	reg out;
+	input control, input_a, input_b;
+	wire not_control;
+	always @(control or not_control or input_a or input_b)
+		out = (control & input_a) | (not_control & input_b);
+		not (not_control, control);
 endmodule
