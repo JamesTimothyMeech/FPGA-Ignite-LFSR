@@ -10,3 +10,10 @@ To test the design in simulation run the bash script:
 ```
 You might have to make the script executable on your machine for this to work!
 
+Dependencies:
+```
+iverilog
+vvp
+gtkwave
+```
+
