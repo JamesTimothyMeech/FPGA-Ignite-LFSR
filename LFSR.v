@@ -6,6 +6,7 @@ module linear_feedback_shift_register(out, clock, reset, seed, load_seed);
 	input clock;
 	wire [31:0] flip_flop_outputs;
 	wire [31:0] flip_flop_inputs;
+	wire feedback1, feedback2, feedback3;
 	flip_flop flip_flop_instance[31:0] (flip_flop_outputs, clock, reset, flip_flop_inputs);
 	one_bit_mux muxes[31:0] (flip_flop_inputs, load_seed, seed, {flip_flop_outputs[30:0], feedback3});
 	xor feedback_gate_one(feedback1, flip_flop_outputs[6], flip_flop_outputs[31]);

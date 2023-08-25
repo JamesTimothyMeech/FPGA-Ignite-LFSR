@@ -1,33 +1,30 @@
 
 module wb_lfrs_test_harness;
-	reg i_clk;
-	reg i_reset;
-	reg i_wb_cyc;
-	reg i_wb_stb;
-	reg i_wb_we; 
-	reg [2:0] i_wb_addr;
-	reg [7:0] i_wb_data;
+	reg i_clk = 0;
+	reg i_reset = 1;
+	reg i_wb_cyc = 0;
+	reg i_wb_stb = 0;
+	reg i_wb_we = 0; 
+	reg [2:0] i_wb_addr = 0;
+	reg [7:0] i_wb_data = 0;
 
-	wire o_wb_stall;
+	wire o_wb_stall;	
 	wire o_wb_data;
 	wire o_wb_ack;
 
 	wb_lfsr test_wb_lfsr(i_clk, i_reset, i_wb_cyc, i_wb_stb, i_wb_we, i_wb_addr, i_wb_data, o_wb_stall, o_wb_data, o_wb_ack);
-	initial begin
-		$dumpfile("wave_wb.vcd");
-		$dumpvars;
-		i_clk <= 0;
-		i_reset <= 0;
-		i_wb_cyc <= 0;
-		i_wb_stb <= 0;
-		#1 i_reset <= 1;
-		#1 i_reset <= 0;
-	end
 
 	always
 		#5 i_clk <= !i_clk;
 	initial begin
 		// reset lfsr
+		$dumpfile("wave_wb.vcd");
+		$dumpvars;
+		i_clk <= 0;
+		i_reset <= 1;
+		i_wb_cyc <= 0;
+		i_wb_stb <= 0;
+		#10 i_reset = 0;
 		@ (posedge i_clk);
 			i_wb_cyc <= 1;
 			i_wb_stb <= 1;
@@ -110,6 +107,10 @@ module wb_lfrs_test_harness;
 		@ (posedge i_clk);
 			i_wb_cyc <= 1'b0;
 			i_wb_stb <= 1'b0;
+			i_wb_we <= 1'b0;
+		@ (posedge i_clk);
+			i_wb_cyc <= 1'b1;
+			i_wb_stb <= 1'b1;
 			i_wb_we <= 1'b0;
 		#5000  $finish;
 	end
