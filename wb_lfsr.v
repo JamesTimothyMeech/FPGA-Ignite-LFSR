@@ -48,7 +48,6 @@ module wb_lfsr(i_clk, i_reset, i_wb_cyc, i_wb_stb, i_wb_we, i_wb_addr, i_wb_data
 	always @(posedge i_clk)
 	if (i_reset) begin
 		o_wb_ack <= 1'b0;
-		seed <= 0;
 	end else
 		o_wb_ack <= ((i_wb_stb) && (!o_wb_stall));
 
