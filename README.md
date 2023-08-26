@@ -1,7 +1,7 @@
 # FPGA-Ignite-LFSR
 
 This is a FABulous FPGA tile: https://github.com/FPGA-Research-Manchester/FABulous
-which will be integrate into an open source FPGA design as a hard IP block along with other designs from the hackathon at the FPGA Ignite Summer School 2023 at Heidelberg University: https://fpga-ignite.github.io/
+which will be integrated into an open source FPGA design as a hard IP block along with other designs from the hackathon at the FPGA Ignite Summer School 2023 at Heidelberg University: https://fpga-ignite.github.io/
 
 We based the initial design on the design from these slides: http://rdsl.csit-sun.pub.ro/docs/PROIECTARE%20cu%20FPGA%20CURS/lecture6[1].pdf
 
