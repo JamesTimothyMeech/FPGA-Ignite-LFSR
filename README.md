@@ -3,9 +3,11 @@
 This is a FABulous FPGA tile: https://github.com/FPGA-Research-Manchester/FABulous
 which will be integrated into an open source FPGA design as a hard IP block along with other designs from the hackathon at the FPGA Ignite Summer School 2023 at Heidelberg University: https://fpga-ignite.github.io/
 
-We based the initial design on the design from these slides: http://rdsl.csit-sun.pub.ro/docs/PROIECTARE%20cu%20FPGA%20CURS/lecture6[1].pdf
+The design is a linear feeback shift regeister pseudorandom number generator with a period of 2^32 - 1.
 
-The choice of feedback taps at flip flop 31, 6, 5, and 1 is based on this paper: <https://www.ijera.com/papers/Vol4_issue6/Version%206/P0460699102.pdf>
+The user can seed the linear feedback shift register with an external physical noise source by connecting to the wishbone through the FPGA fabric. 
+
+We based the initial design on the design from these slides: http://rdsl.csit-sun.pub.ro/docs/PROIECTARE%20cu%20FPGA%20CURS/lecture6[1].pdf
 
 The theory which describes where the feedback taps should be to maximize the period of the linear feedback shift register is available here: <https://sus.ziti.uni-heidelberg.de/Lehre/WS1819_DST/LFSR.pdf>
 
