@@ -112,8 +112,6 @@ module wb_lfrs_test_harness;
 			i_wb_cyc <= 1'b1;
 			i_wb_stb <= 1'b1;
 			i_wb_we <= 1'b0;
-		#5000 finish
-	end
 		#5000  $finish;
 	end
 endmodule
