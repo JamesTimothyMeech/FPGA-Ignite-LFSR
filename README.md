@@ -3,6 +3,8 @@
 This is a FABulous FPGA tile: https://github.com/FPGA-Research-Manchester/FABulous
 which will be integrated into an open source FPGA design as a hard IP block along with other designs from the hackathon at the FPGA Ignite Summer School 2023 at Heidelberg University: https://fpga-ignite.github.io/
 
+Unfortunately this design was discarded at the last minute and did not make it into the final FPGA design.
+
 The design is a linear feedback shift register pseudo random number generator with a period of 2^32 - 1.
 
 The user can seed the linear feedback shift register with an external physical noise source by connecting to the wishbone through the FPGA fabric. 
